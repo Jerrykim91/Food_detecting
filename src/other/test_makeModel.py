@@ -195,7 +195,7 @@ def compute_saliency(model, guided_model, img_path, layer_name='mixed10', cls=-1
     top = decode_predictions(predictions, top=top_n)[0]
     classes = np.argsort(predictions[0])[-top_n:][::-1]
     print('Model prediction:')
-    
+
     for c, p in zip(classes, top):
         print('\t{:15s}\t({})\twith probability {:.3f}'.format(p[1], c, p[2]))
     if cls == -1:
@@ -214,6 +214,7 @@ def compute_saliency(model, guided_model, img_path, layer_name='mixed10', cls=-1
         cv2.imwrite('guided_backprop.jpg', deprocess_image(gb[0]))
         cv2.imwrite('guided_gradcam.jpg', deprocess_image(guided_gradcam[0]))
     
+    # 시각화
     if visualize:
         plt.figure(figsize=(15, 10))
         plt.subplot(131)
